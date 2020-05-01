@@ -1,6 +1,5 @@
 import tkinter as tk
 
-
 class test_gui:
     def __init__(self, master):
         self.master = master
@@ -10,8 +9,8 @@ class test_gui:
 
         self.text.set(str(self.temp))
 
-        self.labal = tk.Label(self.master, textvariable=self.text)
-        self.labal.pack()
+        self.label = tk.Label(self.master, textvariable=self.text)
+        self.label.pack()
 
         self.button = tk.Button(self.master, text="Button", command=self.change_text)
         self.button.pack()
