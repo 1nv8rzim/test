@@ -48,6 +48,7 @@ while (True):
     print(board)
     if (board.game_over()):
         print("X wins!")
+        break
     if (board.tie()):
         print("Tie!")
         break
@@ -61,5 +62,3 @@ while (True):
     if (board.tie()):
         print("Tie!")
         break
-
-
