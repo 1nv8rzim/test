@@ -18,17 +18,13 @@ class Board ():
     def game_over (self):
         for row in self.board:
             if  row[0] != ' ' and row[0] == row[1] == row[2]:
-                print(row[0],row[1],row[2])
                 return True
         for i in range(0,3):
             if self.board[0][i] != ' ' and self.board[0][i] == self.board[1][i] == self.board[2][i]:
-                print(self.board[0][i], self.board[1][i], self.board[2][i])
                 return True
-        if self.board != ' ' and self.board[0][0] == self.board[1][1] == self.board[2][2]:
-            print(self.board[0][0], self.board[1][1], self.board[2][2])
+        if self.board[0][0] != ' ' and self.board[0][0] == self.board[1][1] == self.board[2][2]:
             return True
-        if self.board != ' ' and self.board[2][0] == self.board[1][1] == self.board[0][2]:
-            print(self.board[2][0], self.board[1][1], self.board[0][2])
+        if self.board[2][0] != ' ' and self.board[2][0] == self.board[1][1] == self.board[0][2]:
             return True
         return False
     
