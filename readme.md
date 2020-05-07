@@ -1,4 +1,4 @@
-The purpose of this repository is to for me (and other id wanted) to try out and learn code
+The purpose of this repository is to for me (and hopefully other) to try out and learn python through examples projects
 
 NOTE:
 
