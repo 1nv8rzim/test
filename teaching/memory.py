@@ -60,7 +60,9 @@ class Board:
         print(self)
         while True:
             first_card = Board.get_coordinate("First Card: ")
-            if self.board[first_card[0]][first_card[1]] == '*':
+            if 0 > first_card[0] >= self.row or 0 > first_card[1] >= self.col:
+                print('Invalid Coordinate. Try Again.')
+            elif self.board[first_card[0]][first_card[1]] == '*':
                 break
             else:
                 print('Card Already Revealed. Try Again.')
@@ -71,7 +73,9 @@ class Board:
 
         while True:
             second_card = Board.get_coordinate("Second Card: ")
-            if self.board[second_card[0]][second_card[1]] == '*':
+            if 0 > second_card[0] >= self.row or 0 > second_card[1] >= self.col:
+                print('Invalid Coordinate. Try Again.')
+            elif self.board[second_card[0]][second_card[1]] == '*':
                 break
             else:
                 print('Card Already Revealed. Try Again.')
@@ -81,11 +85,11 @@ class Board:
         print(self)
 
         if self.solution_board[first_card[0]][first_card[1]] == self.solution_board[second_card[0]][second_card[1]]:
-            print("Match!")
+            print("Match!\n")
             self.temp_board = deepcopy(self.board)
             print(self)
         else:
-            print("Mismatch")
+            print("Mismatch\n")
             self.board = deepcopy(self.temp_board)
 
     def game_over(self):
