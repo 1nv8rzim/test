@@ -1,10 +1,21 @@
 from random import shuffle
+from copy import deepcopy
 
 
 class Board:
+
+    @staticmethod
+    def get_coordinate(string):
+        return [int(coordinate)for coordinate in input(string).split()]
+
     def __init__(self):
-        self.row, self.col = [int(coordinate)
-                              for coordinate in input('Enter dimesnions "<x> <y>": ').split()]
+        while True:
+            self.row, self.col = Board.get_coordinate(
+                "Enter board dimensions: ")
+            if (self.row * self.col) % 2 != 0:
+                print("Number of Cards is Odd. Try New Dimensions.")
+            else:
+                break
 
         board_values = []
 
@@ -27,7 +38,7 @@ class Board:
             self.solution_board.append(row)
             self.board.append(blank_row)
 
-        self.temp_board = self.solution_board.copy()
+        self.temp_board = deepcopy(self.board)
 
     def __str__(self):
         string = ' |'
@@ -45,6 +56,48 @@ class Board:
 
         return string
 
+    def reveal(self):
+        print(self)
+        while True:
+            first_card = Board.get_coordinate("First Card: ")
+            if self.board[first_card[0]][first_card[1]] == '*':
+                break
+            else:
+                print('Card Already Revealed. Try Again.')
+
+        self.board[first_card[0]][first_card[1]
+                                  ] = self.solution_board[first_card[0]][first_card[1]]
+        print(self)
+
+        while True:
+            second_card = Board.get_coordinate("Second Card: ")
+            if self.board[second_card[0]][second_card[1]] == '*':
+                break
+            else:
+                print('Card Already Revealed. Try Again.')
+
+        self.board[second_card[0]][second_card[1]
+                                   ] = self.solution_board[second_card[0]][second_card[1]]
+        print(self)
+
+        if self.solution_board[first_card[0]][first_card[1]] == self.solution_board[second_card[0]][second_card[1]]:
+            print("Match!")
+            self.temp_board = deepcopy(self.board)
+            print(self)
+        else:
+            print("Mismatch")
+            self.board = deepcopy(self.temp_board)
+
+    def game_over(self):
+        for row in self.board:
+            if '*' in row:
+                return False
+        return True
+
 
 board = Board()
-print(board)
+while True:
+    board.reveal()
+    if board.game_over():
+        print('You Win!')
+        break
