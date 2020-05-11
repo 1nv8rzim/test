@@ -18,12 +18,21 @@ class Checker:
     def __repr__(self):
         return str(self)
 
+    def king(self):
+        self.isKinged = True
+
+    def moves(self):
+        if self.color == self.color.upper():
+            coordinates = [(self.row + 1, self.col + 1), (self.row + 1, self.color - 1),
+                           (self.row - 1, self.col + 1), (self.row - 1, self.col - 1)]
+        coordinates = [coordinate for coordinate in coordinates if  # TODO]
+
 
 class Board:
     def __init__(self):
-        self.board = []
+        self.board= []
         for i in range(8):
-            row = []
+            row= []
             for j in range(8):
                 if i < 2:
                     row.append(Checker('white'))
