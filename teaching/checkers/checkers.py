@@ -25,14 +25,20 @@ class Checker:
         if self.color == self.color.upper():
             coordinates = [(self.row + 1, self.col + 1), (self.row + 1, self.color - 1),
                            (self.row - 1, self.col + 1), (self.row - 1, self.col - 1)]
-        coordinates = [coordinate for coordinate in coordinates if  # TODO]
+        coordinates = [
+            coordinate for coordinate in coordinates if Checker.isValidCoordinate(coordinate)]
+        return coordinates
+
+    @staticmethod
+    def isValidCoordinate(coordinate):
+        return 0 <= coordinate[0] < 8 and 0 <= coordinate[1] < 8
 
 
 class Board:
     def __init__(self):
-        self.board= []
+        self.board = []
         for i in range(8):
-            row= []
+            row = []
             for j in range(8):
                 if i < 2:
                     row.append(Checker('white'))
