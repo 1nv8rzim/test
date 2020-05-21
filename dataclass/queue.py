@@ -15,8 +15,11 @@ class Queue:
         back: Union[None, Node]
         size: int
 
-    def __init__(self):
+    def __init__(self, *args):
         self.queue = Queue(None, None, 0)
+        if not len(args):
+            for idx in range(len(args), 0, -1):
+                self.enqueue(args[idx])
 
     def __len__(self):
         return self.queue.size
