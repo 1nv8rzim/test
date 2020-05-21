@@ -63,3 +63,34 @@ class Stack:
 
     def __repr__(self):
         return "Stack({})".format(str(self)[1:-1] if len(self) > 0 else '')
+
+    def __eq__(self, value):
+        if isinstance(value, Stack):
+            if self.size == value.size:
+                for i, j in zip(self, value):
+                    if i != j:
+                        return False
+                return True
+        return False
+
+    def __ne__(self, value):
+        return not self.__eq__(value)
+
+    def copy(self):
+        clone = Stack()
+        temp = []
+        for i in reversed(self):
+            clone.enqueue(i)
+        return clone
+
+    def __add__(self, value):
+        clone = self.copy()
+        if hasattr(value, '__iter__'):
+            for i in reversed(value):
+                clone.enqueue(i)
+        else:
+            clone.enqueue(value)
+        return clone
+
+    def __getitem__(self, position):
+        pass
