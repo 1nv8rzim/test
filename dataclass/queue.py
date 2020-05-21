@@ -23,9 +23,6 @@ class Queue:
             for idx in range(len(args)):
                 self.enqueue(args[idx])
 
-    def __len__(self):
-        return self.queue.size
-
     def enqueue(self, element):
         node = Node(element, None)
         if not len(self):
@@ -55,6 +52,9 @@ class Queue:
     def back(self):
         return self.queue.back.value
 
+    def __len__(self):
+        return self.queue.size
+
     def __iter__(self):
         reference = self.queue.front
         values = []
@@ -73,3 +73,22 @@ class Queue:
 
     def __repr__(self):
         return 'Queue({})'.format(str(self)[1:-1] if len(self) else '')
+
+    def __eq__(self, value):
+        if isinstance(value, Queue):
+            if len(value) == len(self):
+                for i, j in zip(value, self):
+                    if i != j:
+                        return False
+                return True
+        return False
+
+    def __ne__(self, value):
+        return not self.__eq__(value)
+
+    def __add__(self, value):
+        if hasattr(value, '__iter__'):
+            for i in value:
+                self.enqueue(i)
+        else:
+            self.enqueue(value)
