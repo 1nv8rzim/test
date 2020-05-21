@@ -19,21 +19,21 @@ class Queue:
 
     def __init__(self, *args):
         self.queue = LinkQueue(None, None, 0)
-        if not len(args):
-            for idx in range(len(args), 0, -1):
+        if len(args):
+            for idx in range(len(args)):
                 self.enqueue(args[idx])
 
     def __len__(self):
         return self.queue.size
 
     def enqueue(self, element):
-        self.queue.size += 1
-        element = Node(element, None)
+        node = Node(element, None)
         if not len(self):
-            self.queue.front = element
+            self.queue.front = node
         else:
-            self, queue.back.tail = element
-        self.queue.back = element
+            self.queue.back.tail = node
+        self.queue.back = node
+        self.queue.size += 1
 
     def dequeue(self):
         if not len(self):
@@ -55,8 +55,21 @@ class Queue:
     def back(self):
         return self.queue.back.value
 
+    def __iter__(self):
+        reference = self.queue.front
+        values = []
+        for i in range(self.queue.size):
+            values += [reference.value]
+            reference = reference.tail
+        return iter(values)
+
     def __str__(self):
-        return str(self.queue)
+        reference = self.queue.front
+        values = []
+        for i in range(self.queue.size):
+            values += [reference.value]
+            reference = reference.tail
+        return str(values)
 
     def __repr__(self):
-        return 'Queue({})'.format(str(self) if len(str) else '')
+        return 'Queue({})'.format(str(self)[1:-1] if len(self) else '')
