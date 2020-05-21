@@ -94,3 +94,6 @@ class Stack:
 
     def __getitem__(self, position):
         pass
+
+    def __reversed__(self):
+        pass
