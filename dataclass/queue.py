@@ -21,7 +21,7 @@ class Queue:
 
     def __init__(self, *args):
         self.queue = LinkQueue(None, None, 0)
-        elif len(args):
+        if len(args):
             for idx in range(len(args)):
                 self.enqueue(args[idx])
 
