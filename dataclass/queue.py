@@ -2,21 +2,23 @@ from dataclasses import dataclass
 from typing import Union, Any
 
 
+@dataclass
+class Node:
+    value: Any
+    tail: Union[None, 'Node']
+
+
+@dataclass
+class LinkQueue:
+    front: Union[None, Node]
+    back: Union[None, Node]
+    size: int
+
+
 class Queue:
 
-    @dataclass
-    class Node:
-        value: Any
-        tail: Union[None, 'Node']
-
-    @dataclass()
-    class Queue:
-        front: Union[None, Node]
-        back: Union[None, Node]
-        size: int
-
     def __init__(self, *args):
-        self.queue = Queue(None, None, 0)
+        self.queue = LinkQueue(None, None, 0)
         if not len(args):
             for idx in range(len(args), 0, -1):
                 self.enqueue(args[idx])
@@ -52,3 +54,9 @@ class Queue:
 
     def back(self):
         return self.queue.back.value
+
+    def __str__(self):
+        return str(self.queue)
+
+    def __repr__(self):
+        return 'Queue({})'.format(str(self) if len(str) else '')
