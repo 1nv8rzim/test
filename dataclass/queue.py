@@ -121,4 +121,5 @@ class Queue:
             return Queue() + temp[position]
 
     def __reversed__(self):
-        return Queue() + [idx for idx in self][::-1]
+        array = [idx for idx in self][::-1]
+        return Queue() + array
