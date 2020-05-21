@@ -4,12 +4,14 @@ from typing import Union, Any
 
 @dataclass
 class Node:
+    __slots__ = 'value', 'tail'
     value: Any
     tail: Union[None, 'Node']
 
 
 @dataclass
 class LinkQueue:
+    __slots__ = 'front', 'back', 'size'
     front: Union[None, Node]
     back: Union[None, Node]
     size: int
@@ -19,7 +21,7 @@ class Queue:
 
     def __init__(self, *args):
         self.queue = LinkQueue(None, None, 0)
-        if len(args):
+        elif len(args):
             for idx in range(len(args)):
                 self.enqueue(args[idx])
 
@@ -100,3 +102,23 @@ class Queue:
         for i in self:
             clone.enqueue(i)
         return clone
+
+    def __getitem__(self, position):
+        if isinstance(position, int):
+            temp_position = position
+            if position < 0:
+                position += len(self)
+            if not (0 <= position < len(self)):
+                raise IndexError(f'Index {temp_position} is out of bounds')
+            reference = self.queue.front
+            for i in range(position):
+                reference = reference.tail
+            return reference.value
+        else:
+            temp = []
+            for i in self:
+                temp.append(i)
+            return Queue() + temp[position]
+
+    def __reversed__(self):
+        return Queue() + [idx for idx in self][::-1]
