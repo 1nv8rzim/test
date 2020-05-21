@@ -87,8 +87,16 @@ class Queue:
         return not self.__eq__(value)
 
     def __add__(self, value):
+        clone = self.copy()
         if hasattr(value, '__iter__'):
             for i in value:
-                self.enqueue(i)
+                clone.enqueue(i)
         else:
-            self.enqueue(value)
+            clone.enqueue(value)
+        return clone
+
+    def copy(self):
+        clone = Queue()
+        for i in self:
+            clone.enqueue(i)
+        return clone
