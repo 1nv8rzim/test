@@ -119,5 +119,5 @@ class Queue:
             return Queue() + array
 
     def __reversed__(self):
-        array = [element for element in reversed(self)]
+        array = reversed([element for element in self])
         return Queue() + array

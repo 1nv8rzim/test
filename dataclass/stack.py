@@ -21,7 +21,7 @@ class Stack:
     def __init__(self, *args):
         self.stack = LinkStack(None, 0)
         if len(args):
-            for arg in args[::-1]:
+            for arg in args:
                 self.enqueue(arg)
 
     def enqueue(self, element):
@@ -46,17 +46,17 @@ class Stack:
         return self.stack.size
 
     def __iter__(self):
-        reference = self.queue.front
+        reference = self.stack.front
         values = []
-        for i in range(len(self) - 1):
+        for i in range(len(self)):
             values += [reference.value]
             reference = reference.tail
         return iter(values[::-1])
 
     def __str__(self):
-        reference = self.queue.front
+        reference = self.stack.front
         values = []
-        for i in range(len(self) - 1):
+        for i in range(len(self)):
             values += [reference.value]
             reference = reference.tail
         return str(values[::-1])
@@ -78,8 +78,8 @@ class Stack:
 
     def copy(self):
         clone = Stack()
-        temp = []
-        for i in reversed(self):
+        temp = reversed([i for i in self])
+        for i in temp:
             clone.enqueue(i)
         return clone
 
