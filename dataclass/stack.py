@@ -93,7 +93,20 @@ class Stack:
         return clone
 
     def __getitem__(self, position):
-        pass
+        if isinstance(position, int):
+            temp_position = position
+            if position < 0:
+                position += len(self)
+            if not (0 <= position < len(self)):
+                raise IndexError(f'Index {temp_position} is out of bounds')
+            reference = self.stack.front
+            for i in range(position):
+                reference = reference.tail
+            return reference.value
+        else:
+            array = reversed([i for i in self])[position]
+            return Stack() + array
 
     def __reversed__(self):
-        pass
+        array = [element for element in self]
+        return Stack() + array

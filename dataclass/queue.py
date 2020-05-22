@@ -115,10 +115,8 @@ class Queue:
                 reference = reference.tail
             return reference.value
         else:
-            temp = []
-            for i in self:
-                temp.append(i)
-            return Queue() + temp[position]
+            array = [i for i in self][position]
+            return Queue() + array
 
     def __reversed__(self):
         array = [element for element in reversed(self)]
