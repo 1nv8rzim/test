@@ -9,6 +9,7 @@ class TreeNode:
     right: Union[None, 'TreeNode']
 
 
+@dataclass
 class LinkTree:
     root: Union[TreeNode, None]
     size: int
@@ -31,4 +32,17 @@ class BinarySearchTree:
             raise TypeError(
                 f'Element {element} is not of tree type {self.kind}')
         if self.link_tree.root == None:
-            self.link_tree.root = element
+            self.link_tree.root = TreeNode(element, None, None)
+            self.size += 1
+        self.enqueue(element, self.root)
+
+    def enqueue(self, element, reference):
+        if reference is None:
+            reference = TreeNode(element, None, None)
+            self.size += 1
+        elif element < reference.value:
+            self.enqueue(element, reference.left)
+        elif element > reference.value:
+            self.enqueue(element, reference.right)
+        else:
+            pass
