@@ -86,7 +86,7 @@ class Queue:
         return False
 
     def __ne__(self, value):
-        return not self.__eq__(value)
+        return not self == value
 
     def __add__(self, value):
         clone = self.copy()
@@ -98,10 +98,7 @@ class Queue:
         return clone
 
     def copy(self):
-        clone = Queue()
-        for i in self:
-            clone.enqueue(i)
-        return clone
+        return Queue(element for element in self)
 
     def __getitem__(self, position):
         if isinstance(position, int):

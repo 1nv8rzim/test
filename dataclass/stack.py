@@ -74,7 +74,7 @@ class Stack:
         return False
 
     def __ne__(self, value):
-        return not self.__eq__(value)
+        return not self == value
 
     def copy(self):
         clone = Stack()
