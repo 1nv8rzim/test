@@ -104,9 +104,7 @@ class Stack:
                 reference = reference.tail
             return reference.value
         else:
-            array = reversed([i for i in self])[position]
-            return Stack() + array
+            return Stack() + [i for i in self][position][::-1]
 
     def __reversed__(self):
-        array = [element for element in self]
-        return Stack() + array
+        return Stack() + [element for element in self]
