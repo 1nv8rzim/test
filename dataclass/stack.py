@@ -51,7 +51,7 @@ class Stack:
         for i in range(len(self)):
             values += [reference.value]
             reference = reference.tail
-        return iter(values[::-1])
+        return iter(values)
 
     def __str__(self):
         reference = self.stack.front
@@ -78,7 +78,7 @@ class Stack:
 
     def copy(self):
         clone = Stack()
-        temp = reversed([i for i in self])
+        temp = [i for i in self]
         for i in temp:
             clone.enqueue(i)
         return clone
