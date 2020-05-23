@@ -19,6 +19,8 @@ class LinkTree:
 class BinaryTree:
 
     def __init__(self, kind, *args):
+        if not isinstance(kind, type):
+            raise TypeError(f'{kind} is not a type')
         if not (hasattr(kind, '__lt__') and hasattr(kind, '__gt__') and hasattr(kind, '__eq__')):
             raise TypeError(
                 f'Type {kind} is not able to be compared to itself')
@@ -79,15 +81,15 @@ class BinaryTree:
         if type(element) != self.link_tree.kind:
             raise TypeError(
                 f'Element {element} is not of tree type {self.link_tree.kind}')
-        return self.contains(element, self.root)
+        return self.container(element, self.link_tree.root)
 
-    def contains(self, element, reference):
+    def container(self, element, reference):
         if reference.value is None:
             return False
         elif element < reference.value:
-            return self.contains(element, reference.left)
+            return self.container(element, reference.left)
         elif element > reference.value:
-            return self.contains(element, reference.right)
+            return self.container(element, reference.right)
         return True
 
     def __len__(self):
@@ -97,17 +99,16 @@ class BinaryTree:
         return iter(self.infix_list(self))
 
     def prefix_list(self):
-        return self.prefix_lister(self.root, [])
+        return self.prefix_lister(self.link_tree.root)
 
-    def prefix_lister(self, reference, accumulator):
+    def prefix_lister(self, reference):
         if reference is None:
-            return accumulator
-        accumulator = self.prefix_lister(
-            reference.left, accumulator.append(reference.value))
-        return self.prefix_lister(reference.right, accumulator)
+            return []
+        else:
+            return [reference.value] + self.prefix_lister(reference.left) + self.prefix_lister(reference.right)
 
     def infix_list(self):
-        return self.infix_lister(self.root, [])
+        return self.infix_lister(self.link_tree.root, [])
 
     def infix_lister(self, reference, accumulator):
         if reference is None:
