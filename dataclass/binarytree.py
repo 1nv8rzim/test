@@ -114,9 +114,9 @@ class BinaryTree:
 
     def infix_lister(self, reference, accumulator):
         if reference is None:
-            return accumulator
-        accumulator = self.infix_lister(reference.left, accumulator)
-        return self.infix_lister(reference.right, accumulator.append(reference.value))
+            return []
+        else:
+            return [] + self.prefix_lister(reference.left) + [reference.value] + self.prefix_lister(reference.right)
 
     def __str__(self):
         return str(self.prefix_list())
