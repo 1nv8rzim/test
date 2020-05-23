@@ -33,43 +33,45 @@ class BinaryTree:
         if type(element) != self.link_tree.kind:
             raise TypeError(
                 f'Element {element} is not of tree type {self.link_tree.kind}')
-        self.enqueuer(element, self.link_tree.root)
+        self.link_tree.root = self.enqueuer(element, self.link_tree.root)
 
     def enqueuer(self, element, reference):
         if reference is None:
-            reference = TreeNode(element, None, None)
             self.link_tree.size += 1
+            return TreeNode(element, None, None)
         elif element < reference.value:
-            self.enqueuer(element, reference.left)
+            reference.left = self.enqueuer(element, reference.left)
         elif element > reference.value:
-            self.enqueuer(element, reference.right)
-        else:
-            pass
+            reference.right = self.enqueuer(element, reference.right)
+        return reference
 
     def dequeue(self, element):
         if type(element) != self.link_tree.kind:
             raise TypeError(
                 f'Element {element} is not of tree type {self.link_tree.kind}')
-        self.dequeuer(element, self.link_tree.root)
+        self.link_tree.root, left, right = self.dequeuer(
+            element, self.link_tree.root)
+        left_tree = BinaryTree(self.link_tree.kind)
+        left_tree.root = left
+        right_tree = BinaryTree(self.link_tree.kind)
+        right_tree.root = right
+        for element in left_tree:
+            self.enqueue(element)
+        for element in right_tree:
+            self.enqueue(element)
 
-    def dequeue(self, element, reference):
+    def dequeuer(self, element, reference):
         if reference is None:
-            pass
+            return reference, None, None
         elif element < reference.value:
-            self.dequeuer(element, reference.left)
+            reference.left = self.enqueuer(element, reference.left)
         elif element > reference.value:
-            self.dequeuer(element, reference.right)
+            reference.right = self.enqueuer(element, reference.right)
         else:
-            left_tree = reference.left
-            right_tree = reference.right
+            left = reference.left
+            right = reference.right
             reference = None
-            for value in iter(self.prefix_list()):
-                self.enqueue(value)
-                self.link_tree.size -= 1
-            for values in iter(self.prefix_list()):
-                self.enqueue(value)
-                self.link_tree.size -= 1
-            self.link_tree.size -= 1
+        return reference, left, right
 
     def add(self, element):
         self.enqueue(element)
@@ -96,7 +98,7 @@ class BinaryTree:
         return self.link_tree.size
 
     def __iter__(self):
-        return iter(self.infix_list(self))
+        return iter(self.infix_list())
 
     def prefix_list(self):
         return self.prefix_lister(self.link_tree.root)
