@@ -62,16 +62,15 @@ class BinaryTree:
 
     def dequeuer(self, element, reference):
         if reference is None:
-            return reference, None, None
+            return reference
         elif element < reference.value:
-            reference.left = self.enqueuer(element, reference.left)
+            reference.left = self.dequeuer(element, reference.left)
         elif element > reference.value:
-            reference.right = self.enqueuer(element, reference.right)
+            reference.right = self.dequeuer(element, reference.right)
         else:
-            left = reference.left
-            right = reference.right
-            reference = None
-        return reference, left, right
+            if reference.left is None:
+                return reference.right
+        return reference
 
     def add(self, element):
         self.enqueue(element)
