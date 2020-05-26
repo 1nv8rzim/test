@@ -49,28 +49,26 @@ class BinaryTree:
         if type(element) != self.link_tree.kind:
             raise TypeError(
                 f'Element {element} is not of tree type {self.link_tree.kind}')
-        self.link_tree.root, left, right = self.dequeuer(
+        self.link_tree.root, branch = self.dequeuer(
             element, self.link_tree.root)
-        left_tree = BinaryTree(self.link_tree.kind)
-        left_tree.root = left
-        right_tree = BinaryTree(self.link_tree.kind)
-        right_tree.root = right
-        for element in left_tree:
-            self.enqueue(element)
-        for element in right_tree:
-            self.enqueue(element)
+        if branch is not None:
+            branch_tree = BinaryTree(self.link_tree.kind)
+            branch_tree.root = branch
+            for element in branch_tree:
+                self.enqueue(element)
 
     def dequeuer(self, element, reference):
         if reference is None:
-            return reference
+            return reference, None
         elif element < reference.value:
-            reference.left = self.dequeuer(element, reference.left)
+            reference.left, branch = self.dequeuer(element, reference.left)
         elif element > reference.value:
-            reference.right = self.dequeuer(element, reference.right)
+            reference.right, branch = self.dequeuer(element, reference.right)
         else:
             if reference.left is None:
-                return reference.right
-        return reference
+                return reference, reference.right
+            return reference, reference.left
+        return reference, branch
 
     def add(self, element):
         self.enqueue(element)
