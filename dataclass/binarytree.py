@@ -58,6 +58,7 @@ class BinaryTree:
                 self.enqueue(element)
 
     def dequeuer(self, element, reference):
+        #TODO - fix
         if reference is None:
             return reference, None
         elif element < reference.value:
@@ -101,6 +102,7 @@ class BinaryTree:
         return self.prefix_lister(self.link_tree.root)
 
     def prefix_lister(self, reference):
+        #TODO - fix
         if reference is None:
             return []
         else:
