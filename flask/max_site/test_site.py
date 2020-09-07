@@ -6,12 +6,12 @@ app = Flask(__name__)
 @app.route('/home')
 @app.route('/index')
 def index():
-    return render_template('index.html')
+    return render_template('index.html', title='Home')
 
 
 @app.route('/about')
 def about():
-    return render_template('about.html')
+    return render_template('about.html', title='About')
 
 
 @app.route('/blog')
@@ -21,7 +21,7 @@ def blog():
 
 @app.route('/resume')
 def resume():
-    return render_template('resume.html')
+    return render_template('resume.html', title='Resume')
 
 
 if __name__ == '__main__':
