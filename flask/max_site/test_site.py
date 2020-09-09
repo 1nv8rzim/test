@@ -1,3 +1,8 @@
+"""
+Runs Flask site
+Author: 1nv8rZim
+"""
+
 from flask import Flask, render_template
 app = Flask(__name__)
 
