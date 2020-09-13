@@ -1,6 +1,7 @@
 """
-Runs Flask site
+Runs Flask site for testing purposes of learning flask
 Author: 1nv8rZim
+
 """
 
 from flask import Flask, render_template
